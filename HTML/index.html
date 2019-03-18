@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Weather</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+
+
+    <link rel="stylesheet" type="text/css" href="../Stylesheets/mainStyle.css">
+
+
+</head>
+
+<body>
+    <div class="container" id="app">
+        <header class="row">
+            <div class="col-4">
+                <img class="logo" src="../Stylesheets/8nv42j1a8r_1z2qbeyhrk_natu0659.png" alt="Logo">
+            </div>
+            <div class="col-8">
+                <h1>What's the Weather like in...</h1>
+                <h1>{{weatherinfo.name}}</h1>
+            </div>
+        </header>
+
+
+        <input class="form-control" type="text" v-model="search" placeholder="Search by City" aria-label="Search" v-on:keyup.enter=" filteredCities(); filteredCities2();search='' ">
+
+<p id="errorDiv">hello</p>
+
+
+        <div class="datainfo" v-if="weatherinfo.length !==0">
+            <div class="topData">
+                <h3>Current Weather in {{weatherinfo.name}}:</h3>
+                <div>{{weatherinfo.weather[0].description}}</div>
+            </div>
+            <hr>
+            <div class="bigFlex">
+                <div class="flex">
+                    <div>Tempature: {{weatherinfo.main.temp}}°C</div>
+                    <div>Max Tempature:<i class="fas fa-temperature-high"></i> {{weatherinfo.main.temp_max}}°C</div>
+                    <div>Min Tempature:<i class="fas fa-temperature-low"></i> {{weatherinfo.main.temp_min}}°C</div>
+                </div>
+
+                <div class="flex">
+                    <div>Humidity:<i class="fas fa-tint">%</i> {{weatherinfo.main.humidity}}%</div>
+                    <div>Pressure: {{weatherinfo.main.pressure}} hpa</div>
+
+                    <div>Wind Speed:<i class="fas fa-wind"></i> {{weatherinfo.wind.speed}} km/h</div>
+                </div>
+            </div>
+<div class="forcastBut">
+            <button class="btn btn-secondary" v-on:click="the5Days()">5 Day forcast</button>
+</div>
+
+
+
+        </div>
+<div class="datainfo2">
+        <div v-if="theWeatherDay1.length !==0">
+            <h3>Today</h3>
+            <table class="table table-bordered table-hover text-center table-condensed">
+                <thead>
+                    <tr>
+                        <th>Time</th>
+                        <th>Humidity</th>
+                        <th>Wind</th>
+                        <th>Temp</th>
+                        <th>MaxTemp</th>
+                        <th>MinTemp</th>
+                        <th>Rain</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="item in theWeatherDay1">
+                        <td>{{item.dt_txt.slice(-8)}}</td>
+                        <td>{{item.main.humidity}}%</td>
+                        <td>{{item.wind.speed}} km/h</td>
+                        <td>{{item.main.temp}}°C</td>
+                        <td>{{item.main.temp_max}}°C</td>
+                        <td>{{item.main.temp_min}}°C</td>
+                        <td>{{item.rain["3h"]}} mm</td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+        <div v-if="theWeatherDay2.length !==0">
+            <h3>Tomorrow</h3>
+            <table class="table table-bordered table-hover text-center table-condensed">
+                <thead>
+                    <tr>
+                        <th>Time</th>
+                        <th>Humidity</th>
+                        <th>Wind</th>
+                        <th>Temp</th>
+                        <th>MaxTemp</th>
+                        <th>MinTemp</th>
+                        <th>Rain</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="item in theWeatherDay2">
+                        <td>{{item.dt_txt.slice(-8)}}</td>
+                        <td>{{item.main.humidity}}%</td>
+                        <td>{{item.wind.speed}} km/h</td>
+                        <td>{{item.main.temp}}°C</td>
+                        <td>{{item.main.temp_max}}°C</td>
+                        <td>{{item.main.temp_min}}°C</td>
+<!--                        <td>{{item.rain["3h"]}} mm</td>-->
+                    </tr>
+
+                </tbody>
+            </table>
+
+            <div>
+                <h3>Day 3</h3>
+                <table class="table table-bordered table-hover text-center table-condensed">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Humidity</th>
+                            <th>Wind</th>
+                            <th>Temp</th>
+                            <th>MaxTemp</th>
+                            <th>MinTemp</th>
+                            <th>Rain</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="item in theWeatherDay3">
+                            <td>{{item.dt_txt.slice(-8)}}</td>
+                            <td>{{item.main.humidity}}%</td>
+                            <td>{{item.wind.speed}} km/h</td>
+                            <td>{{item.main.temp}}°C</td>
+                            <td>{{item.main.temp_max}}°C</td>
+                            <td>{{item.main.temp_min}}°C</td>
+<!--                            <td>{{item.rain["3h"]}} mm</td>-->
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+            <h3>Day 4</h3>
+            <table class="table table-bordered table-hover text-center table-condensed">
+                <thead>
+                    <tr>
+                        <th>Time</th>
+                        <th>Humidity</th>
+                        <th>Wind</th>
+                        <th>Temp</th>
+                        <th>MaxTemp</th>
+                        <th>MinTemp</th>
+                        <th>Rain</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="item in theWeatherDay4">
+                        <td>{{item.dt_txt.slice(-8)}}</td>
+                        <td>{{item.main.humidity}}%</td>
+                        <td>{{item.wind.speed}} km/h</td>
+                        <td>{{item.main.temp}}°C</td>
+                        <td>{{item.main.temp_max}}°C</td>
+                        <td>{{item.main.temp_min}}°C</td>
+<!--                        <td>{{item.rain["3h"]}} mm</td>-->
+                    </tr>
+
+                </tbody>
+            </table>
+            <h3>Day 5</h3>
+            <table class="table table-bordered table-hover text-center table-condensed">
+                <thead>
+                    <tr>
+                        <th>Time</th>
+                        <th>Humidity</th>
+                        <th>Wind</th>
+                        <th>Temp</th>
+                        <th>MaxTemp</th>
+                        <th>MinTemp</th>
+                        <th>Rain</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="item in theWeatherDay5">
+                        <td>{{item.dt_txt.slice(-8)}}</td>
+                        <td>{{item.main.humidity}}%</td>
+                        <td>{{item.wind.speed}} km/h</td>
+                        <td>{{item.main.temp}}°C</td>
+                        <td>{{item.main.temp_max}}°C</td>
+                        <td>{{item.main.temp_min}}°C</td>
+<!--                        <td>{{item.rain["3h"]}} mm</td>-->
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+</div>
+    </div>
+
+    <script src=../Javascript/MainJS.js> </script> </body> </html>
