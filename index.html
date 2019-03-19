@@ -31,7 +31,7 @@
 
         <input class="form-control" type="text" v-model="search" placeholder="Search by City" aria-label="Search" v-on:keyup.enter=" filteredCities(); filteredCities2();search='' ">
 
-<p id="errorDiv">hello</p>
+<p id="errorDiv"></p>
 
 
         <div class="datainfo" v-if="weatherinfo.length !==0">
@@ -112,7 +112,7 @@
                         <td>{{item.main.temp}}°C</td>
                         <td>{{item.main.temp_max}}°C</td>
                         <td>{{item.main.temp_min}}°C</td>
-<!--                        <td>{{item.rain["3h"]}} mm</td>-->
+                        <td>{{item.rain["3h"]}} mm</td>
                     </tr>
 
                 </tbody>
@@ -140,7 +140,7 @@
                             <td>{{item.main.temp}}°C</td>
                             <td>{{item.main.temp_max}}°C</td>
                             <td>{{item.main.temp_min}}°C</td>
-<!--                            <td>{{item.rain["3h"]}} mm</td>-->
+                            <td>{{item.rain["3h"]}} mm</td>
                         </tr>
 
                     </tbody>
@@ -167,7 +167,7 @@
                         <td>{{item.main.temp}}°C</td>
                         <td>{{item.main.temp_max}}°C</td>
                         <td>{{item.main.temp_min}}°C</td>
-<!--                        <td>{{item.rain["3h"]}} mm</td>-->
+                        <td>{{item.rain["3h"]}} mm</td>
                     </tr>
 
                 </tbody>
@@ -193,7 +193,7 @@
                         <td>{{item.main.temp}}°C</td>
                         <td>{{item.main.temp_max}}°C</td>
                         <td>{{item.main.temp_min}}°C</td>
-<!--                        <td>{{item.rain["3h"]}} mm</td>-->
+                        <td>{{item.rain["3h"]}} mm</td>
                     </tr>
 
                 </tbody>
